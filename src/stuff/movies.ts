@@ -53,6 +53,61 @@ const moviesArray: any[] = [
     name: "LastTestFilm",
     year: 1995,
     genre: "Comedy"
+  },
+  {
+    id: 9,
+    name: "SomeFilm",
+    year: 1993,
+    genre: "SomeGenre"
+
+  },
+  {
+    id: 10,
+    name: "SomeFilm",
+    year: 1994,
+    genre: "SomeGenreToo"
+  },
+  {
+    id: 11,
+    name: "LastTestFilm",
+    year: 1995,
+    genre: "Comedy"
+  },
+  {
+    id: 12,
+    name: "LastTestFilm",
+    year: 1995,
+    genre: "Comedy"
+  },
+  {
+    id: 13,
+    name: "LastTestFilm",
+    year: 1995,
+    genre: "Comedy"
+  },
+  {
+    id: 14,
+    name: "LastTestFilm",
+    year: 1995,
+    genre: "Comedy"
+  },
+  {
+    id: 15,
+    name: "LastTestFilm",
+    year: 1995,
+    genre: "Comedy"
+  },
+  {
+    id: 16,
+    name: "LastTestFilm",
+    year: 1995,
+    genre: "Comedy"
+  },
+  {
+    id: 17,
+    name: "LastTestFilm",
+    year: 1995,
+    genre: "Comedy"
   }
 ]; 
 

@@ -1,12 +1,12 @@
 import React from "react";
-import { StyledContainer, StyledItemContainer } from "../../components/styles/styledComponents";
+import { StyledContainer, StyledFavoritesContainer } from "../../components/styles/styledComponents";
 
 export const FavoritesPage = (): any => {
   return (
     <StyledContainer>
-      <StyledItemContainer>
-        This is Favorites Page!
-      </StyledItemContainer>
+        <StyledFavoritesContainer>
+          Favorite page is empty...
+        </StyledFavoritesContainer>
     </StyledContainer>
   )
 }

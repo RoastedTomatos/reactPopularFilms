@@ -1,12 +1,11 @@
 import React                                   from 'react';
 import ReactDOM                                from 'react';
 import Header                                  from './components/Header';
-import { MovieCardMaker }                      from './utils/movieCardCreator';
-import {Wrapper, StyledContainer}              from './components/styles/styledComponents';
+import {Wrapper}                               from './components/styles/styledComponents';
 import { Footer }                              from './components/Footer';
 import { HomePage }                            from './modules/home/page';
 import { FavoritesPage }                       from './modules/favorites/page'; 
-import { createBrowserHistory } from 'history';
+import { createBrowserHistory }                from 'history';
 import {
   Router,
   Switch,

@@ -3,7 +3,8 @@ import ReactDOM from 'react';
 import { MovieCardMaker } from "../../utils/movieCardCreator";
 import { StyledContainer, StyledItemContainer } from "../../components/styles/styledComponents";
 
-export const HomePage = () => {
+export const HomePage = (props: any) => {
+  console.log(props);
   return (
     <StyledContainer>
       <StyledItemContainer>  
