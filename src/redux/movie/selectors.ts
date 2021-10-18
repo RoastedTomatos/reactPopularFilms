@@ -1,1 +1,0 @@
-export const counterSelector = (state: { movieReducer: { counter: any; }; }) => state.movieReducer.counter;

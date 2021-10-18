@@ -1,25 +1,41 @@
-import React from 'react';
-import ReactDOM from 'react';
-import { Header } from './components';
-import MovieCard from './modules/home/movieCard';
-import { useSelector, useDispatch } from 'react-redux';
-import { counterSelector } from './redux/movie/selectors';
-import {doIncrementCounter, doDecrementCounter} from './redux/movie/actions'
+import React                                   from 'react';
+import ReactDOM                                from 'react';
+import Header                                  from './components/Header';
+import { MovieCardMaker }                      from './utils/movieCardCreator';
+import {Wrapper, StyledContainer}              from './components/styles/styledComponents';
+import { Footer }                              from './components/Footer';
+import { HomePage }                            from './modules/home/page';
+import { FavoritesPage }                       from './modules/favorites/page'; 
+import { createBrowserHistory } from 'history';
+import {
+  Router,
+  Switch,
+  Route,
+}                                               from "react-router-dom";
+
+const browserHistory = createBrowserHistory();
 
 function App() {
-  const counter = useSelector(counterSelector);
-  console.log(counter);
-  const dispatch = useDispatch();
-
   return (
-    <div>
-      <Header />
-      <MovieCard />
-      counter: {counter}
-      <button onClick={() => dispatch(doIncrementCounter())}>+</button>
-      <button onClick={() => dispatch(doDecrementCounter())}>-</button>
-    </div>
+    <Router history={browserHistory}>
+      <Wrapper>
+        <>
+          <Header />
+        </>
+        <>
+          <Switch>
+            <Route exact path="/" component={HomePage} />
+            <Route path="/favorites" component={FavoritesPage} />
+          </Switch>
+        </>
+        <>
+          <Footer />
+        </>
+      </Wrapper>
+    </Router>
+
   )
 }
 
 export default App;
+

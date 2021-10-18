@@ -1,12 +1,12 @@
-import * as React from 'react';
-import { styled } from '@mui/material/styles';
-import Card from '@mui/material/Card';
-import CardMedia from '@mui/material/CardMedia';
-import CardContent from '@mui/material/CardContent';
-import CardActions from '@mui/material/CardActions';
+import * as React                      from 'react';
+import { styled }                      from '@mui/material/styles';
+import CardMedia                       from '@mui/material/CardMedia';
+import CardContent                     from '@mui/material/CardContent';
+import CardActions                     from '@mui/material/CardActions';
 import IconButton, { IconButtonProps } from '@mui/material/IconButton';
-import Typography from '@mui/material/Typography';
-import FavoriteIcon from '@mui/icons-material/Favorite';
+import Typography                      from '@mui/material/Typography';
+import FavoriteIcon                    from '@mui/icons-material/Favorite';
+import {StyledCard}                    from '../styles/styledComponents'
 
 interface ExpandMoreProps extends IconButtonProps {
   expand: boolean;
@@ -23,19 +23,19 @@ const ExpandMore = styled((props: ExpandMoreProps) => {
   }),
 }));
 
-export default function MovieCard() {
-
+export const MovieCard = ({ name, year, genre, image }: any) => {
+  console.log(name, year, genre);
   return (
-    <Card sx={{ maxWidth: 345 }}>
+    <StyledCard>
       <CardMedia
         component="img"
-        height="194"
-        image="..."
+        height="200"
+        image={image}
         alt="Place for a movie poster..."
       />
       <CardContent>
         <Typography variant="body2" color="text.secondary" align="center">
-          Some Description and information
+          {name}, {year}, {genre}
         </Typography>
       </CardContent>
       <CardActions disableSpacing>
@@ -43,7 +43,7 @@ export default function MovieCard() {
           <FavoriteIcon />
         </IconButton>
       </CardActions>
-    </Card>
+    </StyledCard>
   );
 }
 

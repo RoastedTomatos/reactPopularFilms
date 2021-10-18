@@ -1,5 +1,5 @@
 import react from 'react';
-import ButtonAppBar from '../navbar';
+import ButtonAppBar from '../Navbar/Navbar';
 
 function Header (){
   return(
