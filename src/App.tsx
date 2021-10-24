@@ -1,7 +1,5 @@
-import React                                   from 'react';
-import ReactDOM                                from 'react';
 import Header                                  from './components/Header';
-import {Wrapper}                               from './components/styles/styledComponents';
+import { Wrapper }                             from './components/styles/commonStyledComponents';
 import { Footer }                              from './components/Footer';
 import { HomePage }                            from './modules/home/page';
 import { FavoritesPage }                       from './modules/favorites/page'; 
@@ -10,7 +8,8 @@ import {
   Router,
   Switch,
   Route,
-}                                               from "react-router-dom";
+}                                              from "react-router-dom";
+import { ErrorMesage } from './components/ErrorMessage/ErrorMessage';
 
 const browserHistory = createBrowserHistory();
 
@@ -25,6 +24,7 @@ function App() {
           <Switch>
             <Route exact path="/" component={HomePage} />
             <Route path="/favorites" component={FavoritesPage} />
+            <Route component={ErrorMesage} />
           </Switch>
         </>
         <>

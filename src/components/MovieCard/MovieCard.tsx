@@ -1,42 +1,30 @@
-import * as React                      from 'react';
-import { styled }                      from '@mui/material/styles';
-import CardMedia                       from '@mui/material/CardMedia';
-import CardContent                     from '@mui/material/CardContent';
-import CardActions                     from '@mui/material/CardActions';
-import IconButton, { IconButtonProps } from '@mui/material/IconButton';
-import Typography                      from '@mui/material/Typography';
-import FavoriteIcon                    from '@mui/icons-material/Favorite';
-import {StyledCard}                    from '../styles/styledComponents'
+import CardMedia                        from '@mui/material/CardMedia';
+import CardContent                      from '@mui/material/CardContent';
+import CardActions                      from '@mui/material/CardActions';
+import IconButton                       from '@mui/material/IconButton';
+import Typography                       from '@mui/material/Typography';
+import FavoriteIcon                     from '@mui/icons-material/Favorite';
+import Card                             from '@mui/material/Card'
+import Link                             from '@mui/material/Link'
+import styled                           from "styled-components";
 
-interface ExpandMoreProps extends IconButtonProps {
-  expand: boolean;
-}
 
-const ExpandMore = styled((props: ExpandMoreProps) => {
-  const { expand, ...other } = props;
-  return <IconButton {...other} />;
-})(({ theme, expand }) => ({
-  transform: !expand ? 'rotate(0deg)' : 'rotate(180deg)',
-  marginLeft: 'auto',
-  transition: theme.transitions.create('transform', {
-    duration: theme.transitions.duration.shortest,
-  }),
-}));
 
 export const MovieCard = ({ name, year, genre, image }: any) => {
-  console.log(name, year, genre);
   return (
     <StyledCard>
       <CardMedia
         component="img"
-        height="200"
+        height="300"
         image={image}
         alt="Place for a movie poster..."
       />
       <CardContent>
-        <Typography variant="body2" color="text.secondary" align="center">
-          {name}, {year}, {genre}
-        </Typography>
+        <Link href="#" underline="none">
+          <Typography variant="body2" color="text.secondary" align="center">
+            {name}, {year}, {genre}
+          </Typography>
+        </Link>
       </CardContent>
       <CardActions disableSpacing>
         <IconButton aria-label="add to favorites">
@@ -47,3 +35,17 @@ export const MovieCard = ({ name, year, genre, image }: any) => {
   );
 }
 
+
+const StyledCard = styled(Card)`
+&& {
+    max-height: 450px;
+    width: 20%;
+    flex: 0 1 auto;
+    margin: 2%;
+    box-shadow: 0 8px 14px -6px;
+    transition: 0.4s ease-in-out;
+    &:hover {
+      box-shadow: 0 8px 26px -6px;
+    }
+}
+`;

@@ -1,6 +1,6 @@
-import { StyledTypography } from "../styles/styledComponents";
+import { StyledTypography } from "../styles/commonStyledComponents";
 import React from "react";
-import { StyledFooter } from "../styles/styledComponents";
+import { StyledFooter } from "../styles/commonStyledComponents";
 
 export const Footer = () => {
   return (

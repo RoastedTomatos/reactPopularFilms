@@ -1,5 +1,5 @@
 import React from "react";
-import { StyledContainer, StyledFavoritesContainer } from "../../components/styles/styledComponents";
+import { StyledContainer, StyledFavoritesContainer } from "../../components/styles/commonStyledComponents";
 
 export const FavoritesPage = (): any => {
   return (

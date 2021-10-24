@@ -1,25 +1,17 @@
-import React                                      from 'react';
 import Box                                        from '@mui/material/Box';
 import Toolbar                                    from '@mui/material/Toolbar';
 import FavoriteIcon                               from '@mui/icons-material/Favorite';
 import LiveTvIcon                                 from '@mui/icons-material/LiveTv';
-import { useHistory }                             from 'react-router-dom';
+import Link                                       from '@mui/material/Link';
 import { 
   StyledButton,
   StyledTypography,
   StyledAppBar,
   StyledLogo,
   StyledLink,
-}                                                 from '../styles/styledComponents';
+}                                                 from '../styles/commonStyledComponents';
 
 export default function ButtonAppBar() {
-  const history = useHistory();
-
-  const moveToFavorites = (): any => {
-    console.log('ping ok');
-    history.push('/favorites');
-  }
-
   return (
     <Box mb="1em" display="flex">
       <StyledAppBar>
@@ -30,14 +22,24 @@ export default function ButtonAppBar() {
               PopularMoviesProject
             </StyledTypography>
           </StyledLogo>
-          <StyledLink href="#" underline="hover" variant="h6">
+          <StyledLink href="/" underline="hover" variant="h6">
             {'Movies'}
           </StyledLink>
-          <StyledButton aria-label="delete" size="large"
-            onClick={moveToFavorites} endIcon={
-              <FavoriteIcon style={{color: '#f44336'}} />
-            }>
-                Favorites
+          <StyledLink href="/tv-shows" underline="hover" variant="h6">
+            {'TV Shows'}
+          </StyledLink>
+          <StyledLink href="/news" underline="hover" variant="h6">
+            {'News'}
+          </StyledLink>
+          <StyledButton>
+            <Link href="/favorites" underline="none">
+              <StyledButton aria-label="delete" size="large"
+                endIcon={
+                  <FavoriteIcon style={{color: '#f44336'}} />
+                }>
+                    Favorites
+              </StyledButton>
+            </Link>
           </StyledButton>
         </Toolbar>
       </StyledAppBar>

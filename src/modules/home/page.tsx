@@ -1,7 +1,7 @@
 import React from "react";
 import ReactDOM from 'react';
 import { MovieCardMaker } from "../../utils/movieCardCreator";
-import { StyledContainer, StyledItemContainer } from "../../components/styles/styledComponents";
+import { StyledContainer, StyledItemContainer } from "../../components/styles/commonStyledComponents";
 
 export const HomePage = (props: any) => {
   console.log(props);

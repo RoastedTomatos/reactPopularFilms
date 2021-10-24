@@ -14,8 +14,6 @@ const StyledItemContainer = styled.section`
   display: flex;
   flex-wrap: wrap;
   justify-content: start;
-  margin-left: 5%;
-  margin-right: 3%;
   min-height: 50em;
 `;
 const Wrapper = styled.section`
@@ -63,21 +61,10 @@ const StyledAppBar = styled(AppBar)`
   };
 `;
 
-const StyledCard = styled(Card)`
-&& {
-    max-height: 350px;
-    max-width: 200px;
-    flex: 0 1 auto;
-    margin-top: 1%;
-    margin-bottom: 1%;
-    margin-left: 2%;
-    margin-right: 2%;
-}
-`;
-
 const StyledLink = styled(Link)`
   && {
     color: white;
+    margin-right: 2em;
   }
 `;
 
@@ -90,10 +77,24 @@ const StyledLogo = styled.section`
   background-color: #212121;
 `;
 
+
+const StyledError = styled(Typography)`   //heh
+&& {
+  font-size: large;
+  text-align: center;
+  display: flex;
+  flex-wrap: wrap;
+  margin-left: 5%;
+  margin-right: 3%;
+  min-height: 50em;
+};
+`;
+
+
 export {
+  StyledError,
   StyledAppBar,
   StyledButton,
-  StyledCard,
   StyledLogo,
   StyledLink,
   StyledTypography,
