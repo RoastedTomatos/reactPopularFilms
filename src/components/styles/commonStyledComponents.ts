@@ -10,23 +10,21 @@ const StyledFooter = styled.section`
   text-align: center;
   background-color: #313131;
 `;
-const StyledItemContainer = styled.section`
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: start;
-  min-height: 50em;
-`;
 const Wrapper = styled.section`
   background-size: cover;
   background-color: #757575;
   margin: 0;
 `;
 const StyledContainer = styled.section`
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: start;
   border: solid 1px;
   display: flex;
   background-color: white;
-  margin-right: 15%;
-  margin-left: 15%;
+  margin-right: 12%;
+  margin-left: 12%;
+  min-height: 50rem;
 `;
 
 const StyledFavoritesContainer = styled.div`
@@ -100,7 +98,6 @@ export {
   StyledTypography,
   StyledFavoritesContainer,
   StyledFooter,
-  StyledItemContainer,
   StyledContainer,
   Wrapper,
 };

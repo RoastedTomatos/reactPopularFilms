@@ -11,7 +11,8 @@ const moviesArray: any[] = [
     id: 1,
     name: "SomeFilm",
     year: 1994,
-    genre: "SomeGenreToo"
+    genre: "SomeGenreToo",
+    image:"https://upload.wikimedia.org/wikipedia/ru/2/21/Warcraft_poster.jpg"
   },
   {
     id: 2,
