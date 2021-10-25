@@ -10,7 +10,8 @@ interface Action {
 export const reducer = (state = initialState, action: Action): any => {
   switch(action.type) {
     case "ADD_TO_FAVORITES":
-      return console.log("action added")
+      console.log("action added")
+      return state
       //return [...state].push(action.payload);
     case "REMOVE_FROM_FAVORITES":
       return state
