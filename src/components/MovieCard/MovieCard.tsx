@@ -11,7 +11,7 @@ export const MovieCard = ({image, name, year, genre} :any) => {
         <>
           <StyledInfo>{name},{year}</StyledInfo>
           <CardFooter>
-            <IconButton onClick={store.dispatch(addToFavorites)}>
+            <IconButton onClick={() => store.dispatch({type: "ADD_TO_FAVORITES", payload: ({image, name, genre, year})})}>
               <FavoriteIcon />
             </IconButton>
             <StyledGenre>

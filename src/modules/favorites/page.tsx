@@ -1,12 +1,12 @@
-import React from "react";
 import { StyledContainer, StyledFavoritesContainer } from "../../components/styles/commonStyledComponents";
+import { FavoritesCreator } from "../../utils/favoritesCreator";
 
 export const FavoritesPage = (): any => {
   return (
     <StyledContainer>
         <StyledFavoritesContainer>
-          Favorite page is empty...
+          <FavoritesCreator />
         </StyledFavoritesContainer>
     </StyledContainer>
   )
-}
+} 
