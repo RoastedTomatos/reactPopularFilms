@@ -1,7 +1,7 @@
 import { initialState }                                 from "./state";
-import { createStore }                                  from 'redux';
+import { createStore, applyMiddleware }                 from 'redux';
 import {composeWithDevTools}                            from 'redux-devtools-extension';
-//import { logger }                                       from 'redux-logger';
+//import { logger }                                     from 'redux-logger';
 import { persistStore, persistReducer }                 from 'redux-persist';
 import storage                                          from 'redux-persist/lib/storage'
 
@@ -11,12 +11,12 @@ interface Action {
 }
 
 export const reducer = (state = initialState, action: Action) => {
+  let item = action.payload;
   switch(action.type) {
     case "ADD_TO_FAVORITES":
       console.log(state);
-      let item = action.payload;
       console.log(item);
-      return [...state, item];
+      return {...state, data: item};
     case "REMOVE_FROM_FAVORITES":
       return state
     default: 
@@ -30,5 +30,5 @@ const persistConfig = {
 }
 
 const persistedReducer = persistReducer(persistConfig, reducer);
-export const store: any = createStore(persistedReducer);
-export const persistor: any = persistStore(store);
+export const store: any = createStore(persistedReducer, composeWithDevTools(applyMiddleware()));
+export const persistor  = persistStore(store);
