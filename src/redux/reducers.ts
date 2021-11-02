@@ -1,32 +1,18 @@
-import { initialState }                                 from "./state";
-import { createStore, applyMiddleware }                 from 'redux';
-import {composeWithDevTools}                            from 'redux-devtools-extension';
-//import { logger }                                     from 'redux-logger';
-import { persistStore, persistReducer }                 from 'redux-persist';
-import storage                                          from 'redux-persist/lib/storage'
-
 interface Action {
   type: string,
-  payload: object
+  payload: any
 }
 
-export const reducer = (state = initialState, action: Action) => {
-  let item = action.payload;
+export const reducer = (
+  state = {
+    favoriteFilms: []
+  },
+  action: Action
+) => {
   switch(action.type) {
-    case "ADD_TO_FAVORITES":
-      return {...state, data: item};
-    case "REMOVE_FROM_FAVORITES":
-      return state
-    default: 
-      return state
+    case "SET_FAVORITES":
+      return {...state, favoriteFilms: action.payload};
+    default:
+      return state;
   }
 }
-
-const persistConfig = {
-  key: "root",
-  storage
-}
-
-const persistedReducer = persistReducer(persistConfig, reducer);
-export const store: any = createStore(persistedReducer, composeWithDevTools(applyMiddleware()));
-export const persistor  = persistStore(store);
