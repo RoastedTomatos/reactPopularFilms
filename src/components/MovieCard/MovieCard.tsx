@@ -1,17 +1,35 @@
 import { IconButton }                   from "@mui/material";
 import styled                           from "styled-components";
 import FavoriteIcon                     from "@mui/icons-material/Favorite";
-import { addToFavorites }               from "../../redux/actions";
-import { store }                        from "../../redux/reducers"
+import { setFavorites }               from "../../redux/actions";
+import { useDispatch } from "react-redux";
+// import { persist }                        from "../../store"
+import { store }                        from "../../store"
 
 export const MovieCard = ({image, name, year, genre} :any) => {
+  const dispatch = useDispatch();
+
+  const onFavoritesClicked = () => {
+    let favoritesIds = [];
+    if(store.getState().favoriteFilms.includes(name)) {
+      console.log(`${name} removed from favorites`);
+      //@ts-ignore
+      favoritesIds = store.getState().favoriteFilms.filter((id) => id !== name);
+    } else {
+      favoritesIds = store.getState().favoriteFilms;
+      console.log(`${name} added to favorites`);
+      favoritesIds.push(name);
+    }
+    dispatch(setFavorites(favoritesIds));
+  };
+
   return(
       <StyledCard>
         <StyledImage src={image} />
         <>
           <StyledInfo>{name},{year}</StyledInfo>
           <CardFooter>
-            <IconButton onClick={() => store.dispatch({type: "ADD_TO_FAVORITES", payload: ({image, name, genre, year})})}>
+            <IconButton onClick={onFavoritesClicked}>
               <FavoriteIcon />
             </IconButton>
             <StyledGenre>

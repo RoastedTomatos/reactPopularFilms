@@ -1,8 +1,4 @@
-export const addToFavorites: any = {
-  type: "ADD_TO_FAVORITES",
-  payload: {}
-}
-
-export const removeFromFavorites: any = {
-  type: "REMOVE_FROM_FAVORITES"
-}
+export const setFavorites: any = (itemIds: any) => ({
+    type: "SET_FAVORITES",
+    payload: itemIds
+});

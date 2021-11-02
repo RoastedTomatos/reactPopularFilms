@@ -1,8 +1,8 @@
 import Header                                  from './components/Header';
 import { Wrapper }                             from './components/styles/commonStyledComponents';
 import { Footer }                              from './components/Footer';
-import { HomePage }                            from './modules/home/page';
-import { FavoritesPage }                       from './modules/favorites/page'; 
+import { HomePage }                            from './containers/HomePage';
+import { FavoritesPage }                       from './containers/FavoritesPage';
 import { createBrowserHistory }                from 'history';
 import {
   Router,

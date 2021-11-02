@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { Button, Typography, AppBar, Card, Link } from "@mui/material";
+import { Button, Typography, AppBar, Link } from "@mui/material";
 
 const StyledFooter = styled.section`
   left: 0;

@@ -1,4 +1,3 @@
-import react from 'react';
 import ButtonAppBar from '../Navbar/Navbar';
 
 function Header (){

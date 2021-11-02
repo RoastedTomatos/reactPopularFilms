@@ -14,8 +14,6 @@ export const reducer = (state = initialState, action: Action) => {
   let item = action.payload;
   switch(action.type) {
     case "ADD_TO_FAVORITES":
-      console.log(state);
-      console.log(item);
       return {...state, data: item};
     case "REMOVE_FROM_FAVORITES":
       return state
