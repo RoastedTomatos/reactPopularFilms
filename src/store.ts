@@ -16,4 +16,4 @@ const store: any = createStore(
 
 const persist = persistStore(store);
 
-export { store, persist };
+export { store, persist }; 

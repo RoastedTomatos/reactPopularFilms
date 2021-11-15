@@ -1,7 +1,11 @@
+import { initialState } from "./state";
+
 interface Action {
   type: string,
   payload: any
 }
+
+let favoriteFilms = initialState.data;
 
 export const reducer = (
   state = {
