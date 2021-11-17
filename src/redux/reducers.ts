@@ -2,10 +2,10 @@ import { initialState } from "./state";
 
 interface Action {
   type: string,
-  payload: any
+  payload: object
 }
 
-let favoriteFilms = initialState.data;
+export const favoriteFilms = initialState.data;
 
 export const reducer = (
   state = {

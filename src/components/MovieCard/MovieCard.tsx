@@ -11,20 +11,24 @@ export const setFavorites: any = (itemIds: any) => ({
 });
 
 
-export const MovieCard = ({image, name, year, genre} :any) => {
+export const MovieCard = ({image, name, year, genre, id} :any) => {
   const dispatch = useDispatch();
 
   const onFavoritesClicked = () => {
     let favoritesIds = [];
-    if(store.getState().favoriteFilms.includes(name, genre, year, image)) {
-      console.log(`${name} removed from favorites`);
-      favoritesIds = store.getState().favoriteFilms.filter((id: string) => id !== name);
-    } else {
-      favoritesIds = store.getState().favoriteFilms;
-      console.log(`${name} added to favorites`);
-      favoritesIds.push(name, genre, year, image);
+    if(store.getState().
+      favoriteFilms.
+      includes(id)) 
+        {
+          favoritesIds = store.getState().
+          favoriteFilms.
+          filter((item: number) => item !== id);
+        } else {
+          favoritesIds = store.getState().favoriteFilms;
+          favoritesIds.push({name, genre, year, image, id});
     }
     dispatch(setFavorites(favoritesIds));
+    dispatch({type:"GET_MOVIES"}); //Тестовый скрипт
   };
 
   return(

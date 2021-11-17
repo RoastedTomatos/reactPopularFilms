@@ -2,7 +2,7 @@ interface initialStateType {
   data: Array<dataType>
 }
 
-interface dataType {
+export interface dataType {
   id: number,
   name: string,
   year: number,
@@ -12,11 +12,6 @@ interface dataType {
 
 export const initialState: initialStateType = {
   data: [
-    {
-      id: 18,
-      name: "TestFavoritesMovie",
-      year: 2021,
-      genre: "Comedy(real)",
-      image: ""
-    },
-]}
+
+    ]
+}
