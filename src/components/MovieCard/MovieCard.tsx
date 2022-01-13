@@ -1,7 +1,6 @@
 import { IconButton }                                                   from "@mui/material";
 import FavoriteIcon                                                     from "@mui/icons-material/Favorite";
 import { useDispatch }                                                  from "react-redux";
-import { persist }                                                      from "../../store"
 import { store }                                                        from "../../store"
 import { StyledCard, StyledImage, StyledInfo, CardFooter, StyledGenre } from "./MovieCard.styles";
 
@@ -14,6 +13,8 @@ export const setFavorites: any = (itemIds: any) => ({
 export const MovieCard = ({image, name, year, genre, id} :any) => {
   const dispatch = useDispatch();
 
+  console.log(name, year);
+  
   const onFavoritesClicked = () => {
     let favoritesIds = [];
     if(store.getState().
@@ -28,7 +29,6 @@ export const MovieCard = ({image, name, year, genre, id} :any) => {
           favoritesIds.push({name, genre, year, image, id});
     }
     dispatch(setFavorites(favoritesIds));
-    dispatch({type:"GET_MOVIES"}); //Тестовый скрипт
   };
 
   return(

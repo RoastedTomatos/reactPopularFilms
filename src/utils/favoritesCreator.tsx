@@ -5,7 +5,7 @@ import { initialState } from "../redux/state";
 
 export const FavoritesCreator = (): any => (
   <>
-    {favoriteFilms.map(({id, name, year, genre, image}) => <MovieCard name={name}  year={year} genre={genre} image={image} id={id}/>)}
+    {favoriteFilms.map(({id, name, year, genre, image}: any) => <MovieCard name={name}  year={year} genre={genre} image={image} id={id}/>)}
   </>
 );
 

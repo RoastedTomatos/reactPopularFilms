@@ -1,5 +1,6 @@
 interface initialStateType {
   data: Array<dataType>
+  fetchedData: any
 }
 
 export interface dataType {
@@ -10,7 +11,10 @@ export interface dataType {
   image: string
 }
 
-export const initialState: initialStateType = {
+export const initialState: any = {
+  fetchedData: [
+      
+    ],
   data: [
 
     ]

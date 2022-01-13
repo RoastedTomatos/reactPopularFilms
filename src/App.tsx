@@ -1,15 +1,14 @@
 import Header                                  from './components/Header';
 import { Wrapper }                             from './components/styles/commonStyledComponents';
 import { Footer }                              from './components/Footer';
-import { HomePage }                            from './containers/HomePage';
-import { FavoritesPage }                       from './containers/FavoritesPage';
+import { HomePage }                            from './pages/HomePage';
+import { FavoritesPage }                       from './pages/FavoritesPage';
 import { createBrowserHistory }                from 'history';
 import {
   Router,
   Switch,
   Route,
 }                                              from "react-router-dom";
-import { ErrorMesage } from './components/ErrorMessage/ErrorMessage';
 import { useSelector } from 'react-redux';
 
 const browserHistory = createBrowserHistory();
@@ -27,7 +26,6 @@ function App() {
           <Switch>
             <Route exact path="/" component={HomePage} />
             <Route path="/favorites" component={FavoritesPage} />
-            <Route component={ErrorMesage} />
           </Switch>
         </>
         <>
@@ -40,4 +38,3 @@ function App() {
 }
 
 export default App;
-

@@ -1,3 +1,4 @@
+import { combineReducers } from "redux";
 import { initialState } from "./state";
 
 interface Action {
@@ -5,14 +6,11 @@ interface Action {
   payload: object
 }
 
-export const favoriteFilms = initialState.data;
+export const favoriteFilms: any = initialState.data;
+export const fetchedFilms: any = initialState.fethcedData;
 
-export const reducer = (
-  state = {
-    favoriteFilms: []
-  },
-  action: Action
-) => {
+const favoritesReducer = (
+  state = {favoriteFilms: []},action: Action) => {
   switch(action.type) {
     case "SET_FAVORITES":
       return {...state, favoriteFilms: action.payload};
@@ -20,3 +18,15 @@ export const reducer = (
       return state;
   }
 }
+
+const fetchReducer = (
+  state = {fetchedFilms: []},action: Action) => {
+  switch(action.type) {
+    case "REQUEST_FILMS":
+      return {...state, fetchedFilms: action.payload};
+    default:
+      return state;
+  }
+}
+
+export const rootReducer = combineReducers({favoritesReducer: favoritesReducer, fetchReducer: fetchReducer})
