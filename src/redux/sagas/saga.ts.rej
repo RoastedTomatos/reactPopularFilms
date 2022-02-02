@@ -1,0 +1,29 @@
+diff a/src/redux/sagas/saga.ts b/src/redux/sagas/saga.ts	(rejected hunks)
+@@ -7,19 +8,20 @@ async function getMovies() {
+   return data;
+ }
+ 
+-export function* workerSaga() {
+-//@ts-ignore  ╨¥╨╡ ╤ü╨╛╨▓╤ü╨╡╨╝ ╨┐╨╛╨╜╨╕╨╝╨░╤Ä, ╨║╨░╨║╨╛╨╣ ╤é╨╕╨┐ ╤é╤â╤é ╨╕╤ü╨┐╨╛╨╗╤î╨╖╤â╨╡╤é╤ü╤Å (Promise?)
++export function* fetchFilms() {
++  //@ts-ignore  ╨¥╨╡ ╤ü╨╛╨▓╤ü╨╡╨╝ ╨┐╨╛╨╜╨╕╨╝╨░╤Ä, ╨║╨░╨║╨╛╨╣ ╤é╨╕╨┐ ╤é╤â╤é ╨╕╤ü╨┐╨╛╨╗╤î╨╖╤â╨╡╤é╤ü╤Å (Promise?)
+   const data = yield getMovies();
+   console.log(data.results);
+-  yield put ({type: "REQUEST_FILMS", payload: data.results});
+-  console.log(fetchedFilms);
++  yield put (setFetchedFilms(data.results));
+ }
+ 
+-export function* watchClickSaga() {
+-  yield takeEvery('GET_MOVIES', workerSaga)
++export function* watchFetchFilms() {
++  yield takeEvery(actionTypes.FETCH_FILMS, fetchFilms)
+ }
+ 
+ export default function* rootSaga() {
+-  yield watchClickSaga();
++  yield all([
++    watchFetchFilms()
++  ]);
+ }
+ 

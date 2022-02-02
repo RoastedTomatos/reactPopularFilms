@@ -1,0 +1,380 @@
+diff --git a/package-lock.json b/package-lock.json
+index 20b932a..a82fae6 100644
+--- a/package-lock.json
++++ b/package-lock.json
+@@ -2806,6 +2806,19 @@
+       "resolved": "https://registry.npmjs.org/@types/json5/-/json5-0.0.29.tgz",
+       "integrity": "sha1-7ihweulOEdK4J7y+UnC86n8+ce4="
+     },
++    "@types/lodash": {
++      "version": "4.14.178",
++      "resolved": "https://registry.npmjs.org/@types/lodash/-/lodash-4.14.178.tgz",
++      "integrity": "sha512-0d5Wd09ItQWH1qFbEyQ7oTQ3GZrMfth5JkbN3EvTKLXcHLRDSXeLnlvlOn0wvxVIwK5o2M8JzP/OWz7T3NRsbw=="
++    },
++    "@types/lodash.get": {
++      "version": "4.4.6",
++      "resolved": "https://registry.npmjs.org/@types/lodash.get/-/lodash.get-4.4.6.tgz",
++      "integrity": "sha512-E6zzjR3GtNig8UJG/yodBeJeIOtgPkMgsLjDU3CbgCAPC++vJ0eCMnJhVpRZb/ENqEFlov1+3K9TKtY4UdWKtQ==",
++      "requires": {
++        "@types/lodash": "*"
++      }
++    },
+     "@types/minimatch": {
+       "version": "3.0.5",
+       "resolved": "https://registry.npmjs.org/@types/minimatch/-/minimatch-3.0.5.tgz",
+@@ -10461,6 +10474,11 @@
+         "json5": "^2.1.2"
+       }
+     },
++    "loadsh": {
++      "version": "0.0.4",
++      "resolved": "https://registry.npmjs.org/loadsh/-/loadsh-0.0.4.tgz",
++      "integrity": "sha512-U+wLL8InpfRalWrr+0SuhWgGt10M4OyAk6G8xCYo2rwpiHtxZkWiFpjei0vO463ghW8LPCdhqQxXlMy2qicAEw=="
++    },
+     "locate-path": {
+       "version": "5.0.0",
+       "resolved": "https://registry.npmjs.org/locate-path/-/locate-path-5.0.0.tgz",
+diff --git a/package.json b/package.json
+index b92d155..b459ac9 100644
+--- a/package.json
++++ b/package.json
+@@ -13,6 +13,7 @@
+     "@testing-library/react": "^11.2.7",
+     "@testing-library/user-event": "^12.8.3",
+     "@types/jest": "^27.0.2",
++    "@types/lodash.get": "^4.4.6",
+     "@types/node": "^16.10.2",
+     "@types/react": "^17.0.27",
+     "@types/react-dom": "^17.0.9",
+@@ -21,6 +22,8 @@
+     "@types/redux": "^3.6.0",
+     "@types/redux-saga": "^0.10.5",
+     "axios": "^0.24.0",
++    "loadsh": "0.0.4",
++    "lodash": "^4.17.21",
+     "react": "^17.0.2",
+     "react-dom": "^17.0.2",
+     "react-paginate": "^8.0.0",
+diff --git a/src/App.tsx b/src/App.tsx
+index 3803365..f968e1d 100644
+--- a/src/App.tsx
++++ b/src/App.tsx
+@@ -14,8 +14,6 @@ import { useSelector } from 'react-redux';
+ const browserHistory = createBrowserHistory();
+ 
+ function App() {
+-  const store = useSelector(store => console.log(store));
+-
+   return (
+     <Router history={browserHistory}>
+       <Wrapper>
+diff --git a/src/models/movie.ts b/src/models/movie.ts
+new file mode 100644
+index 0000000..0fb5bc5
+--- /dev/null
++++ b/src/models/movie.ts
+@@ -0,0 +1,7 @@
++export interface movieData {
++    id: number,
++    name: string,
++    year: number,
++    genre: string,
++    image: string
++};
+diff --git a/src/redux/actionTypes.ts b/src/redux/actionTypes.ts
+new file mode 100644
+index 0000000..b05535f
+--- /dev/null
++++ b/src/redux/actionTypes.ts
+@@ -0,0 +1,4 @@
++export const SET_FAVORITES = "SET_FAVORITES";
++export const REQUEST_FILMS = "REQUEST_FILMS";
++export const FETCH_FILMS = "FETCH_FILMS";
++export const SET_FETCHED_FILMS = "SET_FETCHED_FILMS";
+\ No newline at end of file
+diff --git a/src/redux/actions.ts b/src/redux/actions.ts
+new file mode 100644
+index 0000000..823d27a
+--- /dev/null
++++ b/src/redux/actions.ts
+@@ -0,0 +1,16 @@
++import { movieData } from "../models/movie";
++import * as actionTypes from "./actionTypes";
++
++export const setFavorites = (favorites: Array<movieData>) => ({
++    type: actionTypes.SET_FAVORITES,
++    payload: favorites
++});
++
++export const setFetchedFilms = (fetched: Array<movieData>) => ({
++    type: actionTypes.SET_FETCHED_FILMS,
++    payload: fetched
++});
++
++export const fetchFilms = () => ({
++    type: actionTypes.FETCH_FILMS
++});
+diff --git a/src/redux/reducers.ts b/src/redux/reducers.ts
+index 0ba4372..93701a5 100644
+--- a/src/redux/reducers.ts
++++ b/src/redux/reducers.ts
+@@ -1,32 +1,34 @@
+-import { combineReducers } from "redux";
+-import { initialState } from "./state";
++import * as actionTypes from "./actionTypes";
+ 
+ interface Action {
+   type: string,
+   payload: object
+ }
+ 
+-export const favoriteFilms: any = initialState.data;
+-export const fetchedFilms: any = initialState.fethcedData;
+-
+-const favoritesReducer = (
+-  state = {favoriteFilms: []},action: Action) => {
++export const favoritesReducer = (
++  state = {
++    favoriteFilms: []
++  },
++  action: Action
++) => {
+   switch(action.type) {
+-    case "SET_FAVORITES":
++    case actionTypes.SET_FAVORITES:
+       return {...state, favoriteFilms: action.payload};
+     default:
+       return state;
+   }
+ }
+ 
+-const fetchReducer = (
+-  state = {fetchedFilms: []},action: Action) => {
++export const fetchReducer = (
++  state = {
++    fetchedFilms: []
++  },
++  action: Action
++) => {
+   switch(action.type) {
+-    case "REQUEST_FILMS":
++    case actionTypes.SET_FETCHED_FILMS:
+       return {...state, fetchedFilms: action.payload};
+     default:
+       return state;
+   }
+ }
+-
+-export const rootReducer = combineReducers({favoritesReducer: favoritesReducer, fetchReducer: fetchReducer})
+\ No newline at end of file
+diff --git a/src/redux/sagas/saga.ts b/src/redux/sagas/saga.ts
+index 6db0dbc..85a09a9 100644
+--- a/src/redux/sagas/saga.ts
++++ b/src/redux/sagas/saga.ts
+@@ -1,5 +1,6 @@
+-import { put, takeEvery } from 'redux-saga/effects';
+-import { fetchedFilms } from '../reducers';
++import * as actionTypes from "../actionTypes";
++import { put, takeEvery, all } from 'redux-saga/effects';
++import { setFetchedFilms } from "../actions";
+ 
+ async function getMovies() {
+   const request = await fetch("https://api.themoviedb.org/3/movie/popular?api_key=4f66593dc56df34fd5abd96e24279fca&language=en-US&page=1")
+@@ -7,19 +8,20 @@ async function getMovies() {
+   return data;
+ }
+ 
+-export function* workerSaga() {
+-//@ts-ignore  ╨¥╨╡ ╤ü╨╛╨▓╤ü╨╡╨╝ ╨┐╨╛╨╜╨╕╨╝╨░╤Ä, ╨║╨░╨║╨╛╨╣ ╤é╨╕╨┐ ╤é╤â╤é ╨╕╤ü╨┐╨╛╨╗╤î╨╖╤â╨╡╤é╤ü╤Å (Promise?)
++export function* fetchFilms() {
++  //@ts-ignore  ╨¥╨╡ ╤ü╨╛╨▓╤ü╨╡╨╝ ╨┐╨╛╨╜╨╕╨╝╨░╤Ä, ╨║╨░╨║╨╛╨╣ ╤é╨╕╨┐ ╤é╤â╤é ╨╕╤ü╨┐╨╛╨╗╤î╨╖╤â╨╡╤é╤ü╤Å (Promise?)
+   const data = yield getMovies();
+   console.log(data.results);
+-  yield put ({type: "REQUEST_FILMS", payload: data.results});
+-  console.log(fetchedFilms);
++  yield put (setFetchedFilms(data.results));
+ }
+ 
+-export function* watchClickSaga() {
+-  yield takeEvery('GET_MOVIES', workerSaga)
++export function* watchFetchFilms() {
++  yield takeEvery(actionTypes.FETCH_FILMS, fetchFilms)
+ }
+ 
+ export default function* rootSaga() {
+-  yield watchClickSaga();
++  yield all([
++    watchFetchFilms()
++  ]);
+ }
+ 
+diff --git a/src/redux/selectors.ts b/src/redux/selectors.ts
+new file mode 100644
+index 0000000..56be313
+--- /dev/null
++++ b/src/redux/selectors.ts
+@@ -0,0 +1,11 @@
++import { get } from "lodash";
++import { initialStateType } from "./state";
++
++export const getFavorites = (state: initialStateType) => {
++    return get(state, "favoritesReducer.favoriteFilms", []);
++};
++
++export const getFetched = (state: initialStateType) => {
++    console.log(get(state, 'fetchReducer.fetchedFilms', []));
++    return get(state, 'fetchReducer.fetchedFilms', []);
++};
+diff --git a/src/redux/state.ts b/src/redux/state.ts
+index 837b0bb..fe9b70d 100644
+--- a/src/redux/state.ts
++++ b/src/redux/state.ts
+@@ -1,21 +1,6 @@
+-interface initialStateType {
+-  data: Array<dataType>
+-  fetchedData: any
+-}
++import { movieData } from "../models/movie";
+ 
+-export interface dataType {
+-  id: number,
+-  name: string,
+-  year: number,
+-  genre: string,
+-  image: string
++export interface initialStateType {
++  favoriteFilms: Array<movieData>
++  fetchedFilms: Array<movieData>
+ }
+-
+-export const initialState: any = {
+-  fetchedData: [
+-      
+-    ],
+-  data: [
+-
+-    ]
+-}
+\ No newline at end of file
+diff --git a/src/store.ts b/src/store.ts
+index 0191c31..725284a 100644
+--- a/src/store.ts
++++ b/src/store.ts
+@@ -1,16 +1,19 @@
+-import { createStore, applyMiddleware } from "redux";
+-import { persistStore, persistReducer } from 'redux-persist';
++import { createStore, applyMiddleware, combineReducers } from "redux";
++import { persistStore } from 'redux-persist';
+ import { composeWithDevTools } from 'redux-devtools-extension';
+-import { rootReducer } from "./redux/reducers";
++import { favoritesReducer, fetchReducer } from "./redux/reducers";
+ import createSagaMiddleware from 'redux-saga';
+ import rootSaga from "./redux/sagas/saga";
+-import { initialState } from "./redux/state";
+ 
+ const sagaMiddleware = createSagaMiddleware();
+ 
++const rootReducer = combineReducers({
++  favoritesReducer,
++  fetchReducer
++});
++
+ const store: any = createStore(
+   rootReducer,
+-  initialState,
+   composeWithDevTools(applyMiddleware(sagaMiddleware))
+ );
+ 
+diff --git a/src/utils/favoritesCreator.tsx b/src/utils/favoritesCreator.tsx
+index 310f887..a640fa7 100644
+--- a/src/utils/favoritesCreator.tsx
++++ b/src/utils/favoritesCreator.tsx
+@@ -1,17 +1,30 @@
+-import { connect } from "react-redux";
++import { connect, useSelector } from "react-redux";
+ import { MovieCard } from "../components/MovieCard/MovieCard";
+-import { favoriteFilms } from "../redux/reducers";
+-import { initialState } from "../redux/state";
++import { getFavorites } from "../redux/selectors";
+ 
+-export const FavoritesCreator = (): any => (
+-  <>
+-    {favoriteFilms.map(({id, name, year, genre, image}: any) => <MovieCard name={name}  year={year} genre={genre} image={image} id={id}/>)}
+-  </>
+-);
++export const FavoritesCreator = (): any => {
++  const favorites = useSelector(getFavorites);
++  return (
++    <>
++      {
++        //@ts-ignore
++        favorites.map(
++          ({id, name, year, genre, image}: any) => 
++          <MovieCard 
++            name={name}  
++            year={year} 
++            genre={genre} 
++            image={image} 
++            id={id}
++          />
++        )
++      }
++    </>
++  );
++};
+ 
+-const favoritesState = (state: any) => {
+-  console.log(state)
++const mapStateToProps = (state: any) => {
+   return state;
+ }
+ 
+-export default connect(favoritesState, null)(FavoritesCreator)
+\ No newline at end of file
++export default connect(mapStateToProps, null)(FavoritesCreator)
+diff --git a/src/utils/movieCardCreator.tsx b/src/utils/movieCardCreator.tsx
+index 9351532..b38dec4 100644
+--- a/src/utils/movieCardCreator.tsx
++++ b/src/utils/movieCardCreator.tsx
+@@ -1,21 +1,32 @@
+ //import moviesArray from "../stuff/movies";
+ import { useEffect } from "react";
+-import { useDispatch } from "react-redux";
++import { useDispatch, useSelector } from "react-redux";
+ import { MovieCard } from "../components/MovieCard/MovieCard";
+-import { fetchedFilms } from "../redux/reducers";
+-import { store } from "../store";
++import { getFetched } from "../redux/selectors";
++import { fetchFilms } from "../redux/actions";
++import * as actionTypes from "../redux/actionTypes";
+ 
+ export const MovieCardMaker = (): any => {
+   const dispatch = useDispatch();
+-
++  const fetchedFilms = useSelector(getFetched);
++  
+   useEffect(() => {
+-    dispatch({type:"GET_MOVIES"})
+-  });
++    dispatch(fetchFilms());
++  }, []);
+ 
+-  console.log(fetchedFilms);
+   return (
+     <>
+-      {/* {{store.fetchedFilms.map(({original_title, release_date, poster_path}: any) => <MovieCard name={original_title} year={release_date} image={poster_path} />)}} */}
++      {
++        //@ts-ignore
++        fetchedFilms.map(
++          ({original_title, release_date, poster_path}: any) => 
++            <MovieCard 
++              name={original_title}
++              year={release_date}
++              image={poster_path}
++            />
++        )
++      }
+     </>
+   )
+ }
+\ No newline at end of file

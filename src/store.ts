@@ -1,19 +1,16 @@
-import { createStore, applyMiddleware, combineReducers } from "redux";
-import { persistStore } from 'redux-persist';
+import { createStore, applyMiddleware } from "redux";
+import { persistStore, persistReducer } from 'redux-persist';
 import { composeWithDevTools } from 'redux-devtools-extension';
-import { favoritesReducer, fetchReducer } from "./redux/reducers";
+import { rootReducer } from "./redux/reducers";
 import createSagaMiddleware from 'redux-saga';
 import rootSaga from "./redux/sagas/saga";
+import { initialState } from "./redux/state";
 
 const sagaMiddleware = createSagaMiddleware();
 
-const rootReducer = combineReducers({
-  favoritesReducer,
-  fetchReducer
-});
-
 const store: any = createStore(
   rootReducer,
+  initialState,
   composeWithDevTools(applyMiddleware(sagaMiddleware))
 );
 

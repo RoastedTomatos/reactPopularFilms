@@ -1,17 +1,30 @@
-import { connect } from "react-redux";
+import { connect, useSelector } from "react-redux";
 import { MovieCard } from "../components/MovieCard/MovieCard";
-import { favoriteFilms } from "../redux/reducers";
-import { initialState } from "../redux/state";
+import { getFavorites } from "../redux/selectors";
 
-export const FavoritesCreator = (): any => (
-  <>
-    {favoriteFilms.map(({id, name, year, genre, image}: any) => <MovieCard name={name}  year={year} genre={genre} image={image} id={id}/>)}
-  </>
-);
+export const FavoritesCreator = (): any => {
+  const favorites = useSelector(getFavorites);
+  return (
+    <>
+      {
+        //@ts-ignore
+        favorites.map(
+          ({id, name, year, genre, image}: any) => 
+          <MovieCard 
+            name={name}  
+            year={year} 
+            genre={genre} 
+            image={image} 
+            id={id}
+          />
+        )
+      }
+    </>
+  );
+};
 
-const favoritesState = (state: any) => {
-  console.log(state)
+const mapStateToProps = (state: any) => {
   return state;
 }
 
-export default connect(favoritesState, null)(FavoritesCreator)
+export default connect(mapStateToProps, null)(FavoritesCreator)

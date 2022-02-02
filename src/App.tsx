@@ -14,8 +14,6 @@ import { useSelector } from 'react-redux';
 const browserHistory = createBrowserHistory();
 
 function App() {
-  const store = useSelector(store => console.log(store));
-
   return (
     <Router history={browserHistory}>
       <Wrapper>

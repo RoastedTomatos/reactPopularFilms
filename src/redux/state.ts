@@ -1,21 +1,6 @@
-interface initialStateType {
-  data: Array<dataType>
-  fetchedData: any
-}
+import { movieData } from "../models/movie";
 
-export interface dataType {
-  id: number,
-  name: string,
-  year: number,
-  genre: string,
-  image: string
-}
-
-export const initialState: any = {
-  fetchedData: [
-      
-    ],
-  data: [
-
-    ]
+export interface initialStateType {
+  favoriteFilms: Array<movieData>
+  fetchedFilms: Array<movieData>
 }
