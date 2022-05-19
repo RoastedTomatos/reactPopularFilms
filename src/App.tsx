@@ -1,15 +1,11 @@
-import Header                                  from './components/Header';
-import { Wrapper }                             from './components/styles/commonStyledComponents';
-import { Footer }                              from './components/Footer';
-import { HomePage }                            from './pages/HomePage';
-import { FavoritesPage }                       from './pages/FavoritesPage';
-import { createBrowserHistory }                from 'history';
-import {
-  Router,
-  Switch,
-  Route,
-}                                              from "react-router-dom";
-import { useSelector } from 'react-redux';
+import Header from "./components/Header";
+import { Wrapper } from "./styles/commonStyledComponents";
+import { Footer } from "./components/Footer";
+import { HomePage } from "./pages/HomePage";
+import { FavoritesPage } from "./pages/FavoritesPage";
+import { createBrowserHistory } from "history";
+import { Router, Switch, Route } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 const browserHistory = createBrowserHistory();
 
@@ -31,8 +27,7 @@ function App() {
         </>
       </Wrapper>
     </Router>
-
-  )
+  );
 }
 
 export default App;

@@ -8,24 +8,20 @@ import { fetchFilms } from "../redux/actions";
 export const MovieCardMaker = (): any => {
   const dispatch = useDispatch();
   const fetchedFilms = useSelector(getFetched);
-  
+
   useEffect(() => {
     dispatch(fetchFilms());
   }, []);
 
   return (
     <>
-      {
-        //@ts-ignore
-        fetchedFilms.map(
-          ({original_title, release_date, poster_path}: any) => 
-            <MovieCard 
-              name={original_title}
-              year={release_date}
-              image={"https://image.tmdb.org/t/p/w500/" + poster_path}
-            />
-        )
-      }
+      {fetchedFilms.map(({ title, release_date, poster_path }: any) => (
+        <MovieCard
+          name={title}
+          year={release_date.slice(0, 4)}
+          image={"https://image.tmdb.org/t/p/w500/" + poster_path}
+        />
+      ))}
     </>
-  )
-}
+  );
+};

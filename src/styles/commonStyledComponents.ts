@@ -18,7 +18,7 @@ const Wrapper = styled.section`
 const StyledContainer = styled.section`
   display: flex;
   flex-wrap: wrap;
-  justify-content: start;
+  justify-content: space-evenly;
   border: solid 1px;
   display: flex;
   background-color: white;
@@ -48,7 +48,7 @@ const StyledTypography = styled(Typography)`
   && {
     color: white;
     justify-content: start;
-    margin-right: 2%
+    margin-right: 2%;
   }
 `;
 
@@ -56,7 +56,7 @@ const StyledAppBar = styled(AppBar)`
   && {
     position: static;
     background-color: #313131;
-  };
+  }
 `;
 
 const StyledLink = styled(Link)`
@@ -75,19 +75,18 @@ const StyledLogo = styled.section`
   background-color: #212121;
 `;
 
-
-const StyledError = styled(Typography)`   //heh
-&& {
-  font-size: large;
-  text-align: center;
-  display: flex;
-  flex-wrap: wrap;
-  margin-left: 5%;
-  margin-right: 3%;
-  min-height: 50em;
-};
+const StyledError = styled(Typography)`
+  //heh
+  && {
+    font-size: large;
+    text-align: center;
+    display: flex;
+    flex-wrap: wrap;
+    margin-left: 5%;
+    margin-right: 3%;
+    min-height: 50em;
+  }
 `;
-
 
 export {
   StyledError,
