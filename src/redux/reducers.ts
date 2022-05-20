@@ -51,4 +51,5 @@ export const paginationReducer = (
 export const rootReducer = combineReducers({
   favoritesReducer: favoritesReducer,
   fetchReducer: fetchReducer,
+  paginationReducer: paginationReducer,
 });

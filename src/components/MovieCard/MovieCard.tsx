@@ -17,28 +17,27 @@ export const setFavorites: any = (itemIds: any) => ({
 
 export const MovieCard = ({ image, name, year, genre, id }: any) => {
   const dispatch = useDispatch();
-  // const [page, setPage] = useState(1);
 
-  // const onFavoritesClicked = () => {
-  //   let favoritesIds = [];
-  //   if(store.getState().
-  //     favoriteFilms.
-  //     includes(id))
-  //       {
-  //         favoritesIds = store.getState().
-  //         favoriteFilms.
-  //         filter((item: number) => item !== id);
-  //       } else {
-  //         favoritesIds = store.getState().favoriteFilms;
-  //         favoritesIds.push({name, genre, year, image, id});
-  //   }
-  //   dispatch(setFavorites(favoritesIds));
-  // };
+  const onFavoritesClicked = () => {
+    let favoritesIds = [];
+    console.log(store.getState().favoritesReducer.favoriteFilms);
+    if (store.getState().favoritesReducer.favoriteFilms.includes(id)) {
+      favoritesIds = store
+        .getState()
+        .favoriteFilms.filter((item: number) => item !== id);
+    } else {
+      favoritesIds = store.getState().favoritesReducer.favoriteFilms;
+      favoritesIds.push({ name, genre, year, image, id });
+    }
+
+    console.log(favoritesIds);
+    dispatch(setFavorites(favoritesIds));
+  };
 
   return (
     <StyledCard>
       <StyledImage src={image} />
-      <StyledButton>
+      <StyledButton onClick={() => onFavoritesClicked()}>
         <FavoriteIcon />
       </StyledButton>
       <>
